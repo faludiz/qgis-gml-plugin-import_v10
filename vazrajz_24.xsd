@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:eing="eing.foldhivatal.hu"
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+		xmlns:gml="http://www.opengis.net/gml"
+		xmlns="http://www.w3.org/2001/XMLSchema"
+		targetNamespace="eing.foldhivatal.hu"
+		elementFormDefault="qualified"
+		version="2.4">
+
+	<import namespace="http://www.opengis.net/gml" schemaLocation="./gml/3.1.1/base/gml.xsd"/>
+
+	<simpleType name="longlist">
+		<list itemType="long"/>
+	</simpleType>
+	<simpleType name="long-or-empty">
+		<union memberTypes="long">
+			<simpleType>
+				<restriction base="string">
+					<enumeration value=""/>
+				</restriction>
+			</simpleType>
+		</union>
+	</simpleType>
+	<simpleType name="int-or-empty">
+		<union memberTypes="int">
+			<simpleType>
+				<restriction base="string">
+					<enumeration value=""/>
+				</restriction>
+			</simpleType>
+		</union>
+	</simpleType>
+	<simpleType name="decimal-or-empty">
+		<union memberTypes="decimal">
+			<simpleType>
+				<restriction base="string">
+					<enumeration value=""/>
+				</restriction>
+			</simpleType>
+		</union>
+	</simpleType>
+	<simpleType name="decimal-just-0">
+		<union memberTypes="decimal">
+			<simpleType>
+				<restriction base="string">
+					<enumeration value="0"/>
+				</restriction>
+			</simpleType>
+		</union>
+	</simpleType>
+	<simpleType name="double-or-empty">
+		<union memberTypes="double">
+			<simpleType>
+				<restriction base="string">
+					<enumeration value=""/>
+				</restriction>
+			</simpleType>
+		</union>
+	</simpleType>
+	<simpleType name="nonEmptyString">
+		<restriction base="string">
+			<minLength value="1"></minLength>
+		</restriction>
+	</simpleType>
+
+	<element name="metaDataProperty">
+		<complexType>
+			<sequence>
+				<element name="GenericMetaData">
+					<complexType>
+						<sequence>
+							<element name="MetaDataList">
+								<complexType>
+									<sequence>
+										<element name="gmlID" type="string"/>
+										<element name="gmlExportDate" type="string"/>
+										<element name="gmlGeobjIds" type="eing:longlist"/>
+										<element name="xsdVersion" type="string"/>
+									</sequence>
+								</complexType>
+							</element>
+						</sequence>
+					</complexType>
+				</element>
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="CommonAttributesType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence minOccurs="0">
+					<element name="GEOBJ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="OBJ_FELS" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="RETEG_ID" minOccurs="1" type="int" nillable="false"/>
+					<element name="RETEG_NEV" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="JOGI_STATUSZ" minOccurs="0" type="eing:int-or-empty"/>
+					<element name="MODOSITAS_DATUM" minOccurs="0" type="eing:long-or-empty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="SZIMBOLUMOK" type="eing:SZIMBOLUMOKType" substitutionGroup="gml:_Feature"/>
+	<complexType name="SZIMBOLUMOKType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="FEKVES" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="HRSZ" minOccurs="0" type="string"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="JELKULCS" minOccurs="1" type="int" nillable="false"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PointPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="FELIRATOK" type="eing:FELIRATOKType" substitutionGroup="gml:_Feature"/>
+	<complexType name="FELIRATOKType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="FEKVES" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="HRSZ" minOccurs="0" type="string"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PointPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="VIZSZINTES_ALAPPONTOK" type="eing:VIZSZINTES_ALAPPONTOKType" substitutionGroup="gml:_Feature"/>
+	<complexType name="VIZSZINTES_ALAPPONTOKType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="FEKVES" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="HRSZ" minOccurs="0" type="string"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="PONTSZAM" minOccurs="0" type="string" nillable="false"/>
+					<element name="PONTKOD" minOccurs="0" type="string" nillable="false"/>
+					<element name="ALLANDOSITAS" minOccurs="0" type="eing:int-or-empty"/>
+					<element name="ALLAPOT" minOccurs="0" type="eing:double-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="JELKULCS" minOccurs="1" type="int" nillable="false"/>
+					<element name="geometry" minOccurs="0" type="gml:PointPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="MAGASSAGI_ALAPPONTOK" type="eing:MAGASSAGI_ALAPPONTOKType" substitutionGroup="gml:_Feature"/>
+	<complexType name="MAGASSAGI_ALAPPONTOKType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="FEKVES" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="HRSZ" minOccurs="0" type="string"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="PONTSZAM" minOccurs="0" type="string" nillable="false"/>
+					<element name="PONTKOD" minOccurs="0" type="string" nillable="false"/>
+					<element name="ALLANDOSITAS" minOccurs="0" type="eing:int-or-empty"/>
+					<element name="MAGASSAG" minOccurs="0" type="eing:double-or-empty"/>
+					<element name="ALLAPOT" minOccurs="0" type="eing:double-or-empty"/>
+					<element name="BENDEFY_PONTSZAM" minOccurs="0" type="string"/>
+					<element name="BENDEFY_MAGASSAG" minOccurs="0" type="eing:double-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="JELKULCS" minOccurs="1" type="int" nillable="false"/>
+					<element name="geometry" minOccurs="0" type="gml:PointPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="RESZLETPONTOK" type="eing:RESZLETPONTOKType" substitutionGroup="gml:_Feature"/>
+	<complexType name="RESZLETPONTOKType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="HRSZ" minOccurs="0" type="string"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="MAGASSAG" minOccurs="0" type="eing:double-or-empty"/>
+					<element name="PONTSZAM" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="PONTKOD" minOccurs="0" type="string"/>
+					<element name="JELKULCS" minOccurs="1" type="int" nillable="false"/>
+					<element name="geometry" minOccurs="0" type="gml:PointPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="EPULETEK" type="eing:EPULETEKType" substitutionGroup="gml:_Feature"/>
+	<complexType name="EPULETEKType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="FELIRAT" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="SORSZAM" minOccurs="0" type="eing:int-or-empty"/>
+					<element name="JOGI_TERULET" minOccurs="1" type="long" nillable="false"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="EPULET_TARTOZEKAI_FELULETSZERU" type="eing:EPULET_TARTOZEKAI_FELULETSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="EPULET_TARTOZEKAI_FELULETSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="EP_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="EPULET_TARTOZEKAI_PONTSZERU" type="eing:EPULET_TARTOZEKAI_PONTSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="EPULET_TARTOZEKAI_PONTSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="0" type="string" />
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="EP_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="JELKULCS" minOccurs="1" type="int" nillable="false"/>
+					<element name="geometry" minOccurs="0" type="gml:PointPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="EPULET_TARTOZEKAI_VONALSZERU" type="eing:EPULET_TARTOZEKAI_VONALSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="EPULET_TARTOZEKAI_VONALSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="EP_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:LineStringPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="KERITESEK_TAMFALAK_FOLDMUVEK_FELULETSZERU" type="eing:KERITESEK_TAMFALAK_FOLDMUVEK_FELULETSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="KERITESEK_TAMFALAK_FOLDMUVEK_FELULETSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="FEKVES" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="HRSZ" minOccurs="0" type="string"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="KERITESEK_TAMFALAK_FOLDMUVEK_VONALSZERU" type="eing:KERITESEK_TAMFALAK_FOLDMUVEK_VONALSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="KERITESEK_TAMFALAK_FOLDMUVEK_VONALSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="FEKVES" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="HRSZ" minOccurs="0" type="string"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:LineStringPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="TEREPTARGYAK_EGYEDI_EPITMENYEK_FELULETSZERU" type="eing:TEREPTARGYAK_EGYEDI_EPITMENYEK_FELULETSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="TEREPTARGYAK_EGYEDI_EPITMENYEK_FELULETSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="TEREPTARGYAK_EGYEDI_EPITMENYEK_PONTSZERU" type="eing:TEREPTARGYAK_EGYEDI_EPITMENYEK_PONTSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="TEREPTARGYAK_EGYEDI_EPITMENYEK_PONTSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="JELKULCS" minOccurs="1" type="int" nillable="false"/>
+					<element name="geometry" minOccurs="0" type="gml:PointPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="TEREPTARGYAK_EGYEDI_EPITMENYEK_VONALSZERU" type="eing:TEREPTARGYAK_EGYEDI_EPITMENYEK_VONALSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="TEREPTARGYAK_EGYEDI_EPITMENYEK_VONALSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:LineStringPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="EGYEB_ONALLO_INGATLANOK_PONTSZERU" type="eing:EGYEB_ONALLO_INGATLANOK_PONTSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="EGYEB_ONALLO_INGATLANOK_PONTSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="ALATORES" minOccurs="0" type="string" nillable="false"/>
+					<element name="FELIRAT" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="SZINT" minOccurs="1" type="eing:decimal-just-0" nillable="false"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="long" nillable="false"/>
+					<element name="JELKULCS" minOccurs="1" type="int" nillable="false"/>
+					<element name="geometry" minOccurs="0" type="gml:PointPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="EGYEB_ONALLO_INGATLANOK_FELULETSZERU" type="eing:EGYEB_ONALLO_INGATLANOK_FELULETSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="EGYEB_ONALLO_INGATLANOK_FELULETSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="ALATORES" minOccurs="0" type="string" nillable="false"/>
+					<element name="FELIRAT" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="SZINT" minOccurs="1" type="eing:decimal-just-0" nillable="false"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="JOGI_TERULET" minOccurs="0" type="long" nillable="false"/>
+					<element name="FRSZ_ID" minOccurs="0" type="long" nillable="false"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="FOLDRESZLETEK" type="eing:FOLDRESZLETEKType" substitutionGroup="gml:_Feature"/>
+	<complexType name="FOLDRESZLETEKType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="FELIRAT" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="MUVEL_AG" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="JOGI_TERULET" minOccurs="0" type="long" nillable="false"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="ALRESZLETEK" type="eing:ALRESZLETEKType" substitutionGroup="gml:_Feature"/>
+	<complexType name="ALRESZLETEKType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="ALATORES" minOccurs="0" type="string"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="MUVEL_AG" minOccurs="0" type="long" nillable="false"/>
+					<element name="JOGI_TERULET" minOccurs="0" type="long" nillable="false"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="SZOLGALMI_JOG_TERULET" type="eing:SZOLGALMI_JOG_TERULETType" substitutionGroup="gml:_Feature"/>
+	<complexType name="SZOLGALMI_JOG_TERULETType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="FELIRAT" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="JOGI_TERULET" minOccurs="0" type="long" nillable="false"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="TERMOFOLD_MINOSEGI_OSZTALYOK" type="eing:TERMOFOLD_MINOSEGI_OSZTALYOKType" substitutionGroup="gml:_Feature"/>
+	<complexType name="TERMOFOLD_MINOSEGI_OSZTALYOKType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="FELIRAT" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="MUVEL_AG" minOccurs="1" type="long" nillable="false"/>
+					<element name="JOGI_TERULET" minOccurs="0" type="long" nillable="false"/>
+					<element name="MIN_OSZT" minOccurs="1" type="long" nillable="false"/>
+					<element name="ALR_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="KOZIGAZGATASI_EGYSEG" type="eing:KOZIGAZGATASI_EGYSEGType" substitutionGroup="gml:_Feature"/>
+	<complexType name="KOZIGAZGATASI_EGYSEGType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FELIRAT" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="KOZIGAZGATASI_ALEGYSEG" type="eing:KOZIGAZGATASI_ALEGYSEGType" substitutionGroup="gml:_Feature"/>
+	<complexType name="KOZIGAZGATASI_ALEGYSEGType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="FELIRAT" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="FOLDMINOSITESI_MINTATEREK" type="eing:FOLDMINOSITESI_MINTATEREKType" substitutionGroup="gml:_Feature"/>
+	<complexType name="FOLDMINOSITESI_MINTATEREKType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="REKORD_ID" minOccurs="0" type="long"/>
+					<element name="HELYSZIN_LABOR" minOccurs="0" type="string"/>
+					<element name="MT_MELYSEG" minOccurs="0" type="string"/>
+					<element name="MT_FELTALAJ" minOccurs="0" type="string"/>
+					<element name="MT_ALTALAJ" minOccurs="0" type="string"/>
+					<element name="MT_TULAJDONSAG" minOccurs="0" type="string"/>
+					<element name="JELKULCS" minOccurs="1" type="int" nillable="false"/>
+					<element name="MEGJEGYZES" minOccurs="0" type="string"/>
+					<element name="JELLEG" minOccurs="0" type="int" nillable="false"/>
+					<element name="MUVEL_AG" minOccurs="0" type="long" nillable="false"/>
+					<element name="MIN_OSZT" minOccurs="0" type="long" nillable="false"/>
+					<element name="FRSZ_ID" minOccurs="0" type="long" nillable="false"/>
+					<element name="geometry" minOccurs="0" type="gml:PointPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="EGYEB_OBJEKTUMOK_PONTSZERU" type="eing:EGYEB_OBJEKTUMOK_PONTSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="EGYEB_OBJEKTUMOK_PONTSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="FEKVES" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="HRSZ" minOccurs="0" type="string"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="JELKULCS" minOccurs="1" type="int" nillable="false"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PointPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="EGYEB_OBJEKTUMOK_VONALSZERU" type="eing:EGYEB_OBJEKTUMOK_VONALSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="EGYEB_OBJEKTUMOK_VONALSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="FEKVES" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="HRSZ" minOccurs="0" type="string"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="JELKULCS" minOccurs="0" type="eing:int-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:LineStringPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="EGYEB_OBJEKTUMOK_FELULETSZERU" type="eing:EGYEB_OBJEKTUMOK_FELULETSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="EGYEB_OBJEKTUMOK_FELULETSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="FEKVES" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="HRSZ" minOccurs="0" type="string"/>
+					<element name="FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="JELKULCS" minOccurs="0" type="eing:int-or-empty"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="CIMKOORDINATA" type="eing:CIMKOORDINATAType" substitutionGroup="gml:_Feature"/>
+	<complexType name="CIMKOORDINATAType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="FELIRAT" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="EPITMENY_FELIRAT" minOccurs="0" type="string"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="PONTSZAM" minOccurs="0" type="string" nillable="false"/>
+					<element name="PONTKOD" minOccurs="0" type="string" nillable="false"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="JELKULCS" minOccurs="1" type="int" nillable="false"/>
+					<element name="geometry" minOccurs="0" type="gml:PointPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="EGYEB_ONALLO_INGATLANOK_NEM_ALAPSZINTEN_PONTSZERU" type="eing:EGYEB_ONALLO_INGATLANOK_NEM_ALAPSZINTEN_PONTSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="EGYEB_ONALLO_INGATLANOK_NEM_ALAPSZINTEN_PONTSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="ALATORES" minOccurs="0" type="string" nillable="false"/>
+					<element name="FELIRAT" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="SZINT" minOccurs="1" type="int" nillable="false"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="JELKULCS" minOccurs="1" type="int" nillable="false"/>
+					<element name="geometry" minOccurs="0" type="gml:PointPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="EGYEB_ONALLO_INGATLANOK_NEM_ALAPSZINTEN_FELULETSZERU" type="eing:EGYEB_ONALLO_INGATLANOK_NEM_ALAPSZINTEN_FELULETSZERUType" substitutionGroup="gml:_Feature"/>
+	<complexType name="EGYEB_ONALLO_INGATLANOK_NEM_ALAPSZINTEN_FELULETSZERUType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="ALATORES" minOccurs="0" type="string" nillable="false"/>
+					<element name="FELIRAT" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="SZINT" minOccurs="1" type="int" nillable="false"/>
+					<element name="JOGI_TERULET" minOccurs="0" type="long" nillable="false"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="INGATLAN_RESZERE_BEJEGYZETT_JOG" type="eing:INGATLAN_RESZERE_BEJEGYZETT_JOGType" substitutionGroup="gml:_Feature"/>
+	<complexType name="INGATLAN_RESZERE_BEJEGYZETT_JOGType">
+		<complexContent>
+			<extension base="eing:CommonAttributesType">
+				<sequence>
+					<element name="TELEPULES_ID" minOccurs="1" type="long" nillable="false"/>
+					<element name="FEKVES" minOccurs="1" type="long" nillable="false"/>
+					<element name="HRSZ" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="FELIRAT" minOccurs="1" type="eing:nonEmptyString" nillable="false"/>
+					<element name="SZINT" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="IRANY" minOccurs="0" type="eing:decimal-or-empty"/>
+					<element name="JELKULCS" minOccurs="0" type="eing:int-or-empty"/>
+					<element name="JOGI_TERULET" minOccurs="0" type="long" nillable="false"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+
+	<element name="MUVELESBOL_IDOLEGESEN_KIVONT" type="eing:MUVELESBOL_IDOLEGESEN_KIVONTType" substitutionGroup="gml:_Feature"/>
+	<complexType name="MUVELESBOL_IDOLEGESEN_KIVONTType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<element name="GEOBJ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="OBJ_FELS" minOccurs="0" type="string"/>
+					<element name="NEV" minOccurs="0" type="string"/>
+					<element name="FRSZ_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="ALR_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="MINOSZT_ID" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="FEKVES" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="JOGI_STATUSZ" minOccurs="0" type="eing:int-or-empty"/>
+					<element name="MODOSITAS_DATUM" minOccurs="0" type="eing:long-or-empty"/>
+					<element name="RETEG_ID" minOccurs="0" type="eing:int-or-empty"/>
+					<element name="RETEG_NEV" minOccurs="0" type="string"/>
+					<element name="geometry" minOccurs="0" type="gml:PolygonPropertyType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>
