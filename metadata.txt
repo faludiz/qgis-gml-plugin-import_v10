@@ -6,7 +6,7 @@
 name=E-ING GML import/export
 qgisMinimumVersion=3.0
 description=
-version=10.0
+version=10.0.2.4
 author=Tigra Kft, INTELLIGEO Kft
 
 about=Plugin az E-ING adatszolgáltatás során előállított GML-ek GeoPackage-be történő importálására, valamint onnan a GML-be történő visszaexportálásra.
